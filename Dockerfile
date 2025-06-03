@@ -9,21 +9,20 @@ COPY gradle gradle
 COPY build.gradle .
 COPY settings.gradle .
 
-# Copy source code (optional: you can copy it later to leverage Docker cache more effectively if dependencies don't change)
+# Copy source code
 COPY src src
 
 # Make gradlew executable
 RUN chmod +x ./gradlew
 
 # Run a dummy build to download dependencies and cache them
-# This helps speed up subsequent builds if dependencies don't change
 RUN ./gradlew dependencies
 
 # Build the Grails application
 RUN ./gradlew bootJar
 
 # Stage 2: Create the final lean runtime image
-FROM openjdk:17-jre-slim-buster
+FROM openjdk:17-slim-buster 
 
 WORKDIR /app
 
