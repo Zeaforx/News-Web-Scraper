@@ -3,14 +3,10 @@ FROM openjdk:17-jdk-slim-buster AS build
 
 WORKDIR /app
 
-# Copy Gradle wrapper and build files
-COPY gradlew .
-COPY gradle gradle
-COPY build.gradle .
-COPY settings.gradle .
-
-# Copy source code
-COPY src src
+# Copy the entire project context into the /app directory in the build stage.
+# This ensures all necessary source files and build scripts are available.
+# A .dockerignore file can be used to exclude unnecessary files.
+COPY . . 
 
 # Make gradlew executable
 RUN chmod +x ./gradlew
@@ -22,7 +18,7 @@ RUN ./gradlew dependencies
 RUN ./gradlew bootJar
 
 # Stage 2: Create the final lean runtime image
-FROM openjdk:17-slim-buster 
+FROM openjdk:17-slim-buster
 
 WORKDIR /app
 
