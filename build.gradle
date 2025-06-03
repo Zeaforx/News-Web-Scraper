@@ -1,0 +1,86 @@
+buildscript {
+    repositories {
+        maven { url "https://repo.grails.org/grails/core" }
+        mavenCentral()
+    }
+    dependencies {
+        classpath platform("org.grails:grails-bom:$grailsVersion")
+        classpath "org.grails:grails-gradle-plugin"
+        classpath "org.grails.plugins:hibernate5"
+        classpath "com.bertramlabs.plugins:asset-pipeline-gradle"
+    }
+}
+
+version "0.1"
+group "myapp"
+
+apply plugin:"eclipse"
+apply plugin:"idea"
+apply plugin:"war"
+apply plugin:"org.grails.grails-web"
+apply plugin:"org.grails.grails-gsp"
+apply plugin:"com.bertramlabs.asset-pipeline"
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.grails.org/grails/core" }
+}
+
+dependencies {
+    implementation platform("org.grails:grails-bom:$grailsVersion")
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+    integrationTestImplementation testFixtures("org.grails.plugins:geb")
+    console "org.grails:grails-console"
+    developmentOnly "org.webjars.npm:bootstrap"
+    developmentOnly "org.webjars.npm:bootstrap-icons"
+    developmentOnly "org.webjars.npm:jquery"
+    implementation "org.springframework.boot:spring-boot-starter-logging"
+    implementation "org.springframework.boot:spring-boot-starter-validation"
+    implementation "org.springframework.boot:spring-boot-autoconfigure"
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.grails:grails-core"
+    implementation 'org.jsoup:jsoup:1.17.2'
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    implementation "org.springframework.boot:spring-boot-starter-tomcat"
+    implementation "org.grails:grails-web-boot"
+    implementation "org.grails:grails-logging"
+    implementation "org.grails:grails-plugin-rest"
+    implementation "org.grails:grails-plugin-databinding"
+    implementation "org.grails:grails-plugin-i18n"
+    implementation "org.grails:grails-plugin-services"
+    implementation "org.grails:grails-plugin-url-mappings"
+    implementation "org.grails:grails-plugin-interceptors"
+    implementation "org.grails.plugins:scaffolding"
+    implementation "org.grails.plugins:hibernate5"
+    implementation "org.grails.plugins:gsp"
+    profile "org.grails.profiles:web"
+    runtimeOnly "com.h2database:h2"
+    runtimeOnly "com.zaxxer:HikariCP"
+    runtimeOnly "com.bertramlabs.plugins:asset-pipeline-grails"
+    testImplementation "org.grails:grails-gorm-testing-support"
+    testImplementation "org.grails:grails-web-testing-support"
+    testImplementation "org.spockframework:spock-core"
+}
+
+compileJava.options.release = 17
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+}
+
+
+assets {
+    excludes = [
+            'webjars/jquery/**',
+            'webjars/bootstrap/**',
+            'webjars/bootstrap-icons/**'
+    ]
+    includes = [
+            'webjars/jquery/*/dist/jquery.js',
+            'webjars/bootstrap/*/dist/js/bootstrap.bundle.js',
+            'webjars/bootstrap/*/dist/css/bootstrap.css',
+            'webjars/bootstrap-icons/*/font/bootstrap-icons.css',
+            'webjars/bootstrap-icons/*/font/fonts/*',
+    ]
+}
+

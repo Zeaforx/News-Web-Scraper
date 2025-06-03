@@ -1,0 +1,40 @@
+# Gradle
+.gradle/
+build/
+out/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Grails specific
+target/
+web-app/WEB-INF/classes/
+web-app/WEB-INF/lib/
+web-app/plugins/
+web-app/temp/
+
+# IDEs
+*.iml
+*.ipr
+*.iws
+.idea/
+.vscode/
+.project
+.classpath
+.settings/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Environment
+.env
+*.env
+
+# Misc
+*.bak
+*.orig
+*.rej
